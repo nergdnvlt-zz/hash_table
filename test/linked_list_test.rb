@@ -29,6 +29,25 @@ class LinkedListTest < Minitest::Test
     assert_nil list.head.next_node
   end
 
+  def test_it_can_append_two_nodes
+    list = LinkedList.new
+
+    list.append('Thrasher')
+    assert_instance_of LinkedList, list
+    assert_instance_of Node, list.head
+    assert_equal "Thrasher", list.head.data
+    assert_nil list.head.next_node
+
+    assert_equal 1, list.count
+
+    list.append('Fluffy')
+    assert_instance_of Node, list.head.next_node
+    assert_equal "Fluffy", list.head.next_node.data
+    assert_nil list.head.next_node.next_node
+
+    assert_equal 2, list.count
+  end
+
   def test_it_can_append_multiple_nodes
     list = LinkedList.new
 
@@ -46,5 +65,12 @@ class LinkedListTest < Minitest::Test
     assert_nil list.head.next_node.next_node
 
     assert_equal 2, list.count
+
+    list.append('papawar')
+    assert_instance_of Node, list.head.next_node
+    assert_equal "papawar", list.head.next_node.next_node.data
+    assert_nil list.head.next_node.next_node.next_node
+
+    assert_equal 3, list.count
   end
 end
