@@ -17,7 +17,30 @@ class HashTable
     return @end_array
   end
 
+  def print_table
+    format_printing.each do |row|
+      row
+    end
+  end
+
   private
+
+  def format_printing
+    rows = @table.map.with_index do |row, index|
+      string = "#{index} -> "
+      if row.count == 1
+        string << " #{row.head.data}"
+      elsif row.count > 1
+        string << " #{row.head.data}"
+        current_node = row.head
+        until current_node.next_node == nil
+          current_node = current_node.next_node
+          string << ", #{current_node.data}"
+        end
+      end
+      string
+    end
+  end
 
   def build_end_array
     end_array = []

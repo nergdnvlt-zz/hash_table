@@ -18,6 +18,14 @@ class HashTest < Minitest::Test
     assert_equal 'Bea', hash_table[0].head.data
   end
 
+  def test_print_table
+    printed = HashTable.new(@names).print_table
+    # binding.pry
+    # To test:
+    # in the command line run:
+    puts printed
+  end
+
   ####### OLD PRIVATE METHOD TESTS
 
   # def test_it_initializes
