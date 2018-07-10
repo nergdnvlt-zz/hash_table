@@ -7,15 +7,15 @@ class LinkedList
     @head = nil
   end
 
-  def append(data)
+  def append(key, value)
     if @head == nil
-      @head = Node.new(data)
+      @head = Node.new(key, value)
     else
       current_node = @head
       until current_node.next_node == nil
         current_node = current_node.next_node
       end
-      current_node.next_node = Node.new(data)
+      current_node.next_node = Node.new(key, value)
     end
   end
 
