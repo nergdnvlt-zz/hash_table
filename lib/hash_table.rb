@@ -10,11 +10,16 @@ class HashTable
     @table = build_table
   end
 
-  def build_table
-    zip_values_with_hash_keys.each do |pair|
-      @end_array[pair[0]].append(pair[1])
+  def put(key, value)
+    @end_array[hash_input(key)].append(key, value)
+  end
+
+  def get(key)
+    current_node = @end_array[hash_input(key)].head
+    until current_node.key == key
+      current_node = current_node.next_node
     end
-    return @end_array
+    return current_node.value
   end
 
   def print_table
@@ -25,17 +30,24 @@ class HashTable
 
   private
 
+  def build_table
+    zip_values_with_hash_keys.each do |pair|
+      @end_array[pair[0]].append(pair[1][0], pair[1][1])
+    end
+    return @end_array
+  end
+
   def format_printing
     rows = @table.map.with_index do |row, index|
       string = "#{index} -> "
       if row.count == 1
-        string << " #{row.head.data}"
+        string << "#{row.head.key}: #{row.head.value}"
       elsif row.count > 1
-        string << " #{row.head.data}"
+        string << "#{row.head.key}: #{row.head.value}"
         current_node = row.head
         until current_node.next_node == nil
           current_node = current_node.next_node
-          string << ", #{current_node.data}"
+          string << ", #{current_node.key}: #{current_node.value}"
         end
       end
       string
@@ -51,8 +63,8 @@ class HashTable
   end
 
   def ord_values
-    @list.map do |name|
-      name.chars.map do |letter|
+    @list.map do |pair|
+      pair[0].chars.map do |letter|
         letter.ord
       end.sum
     end
@@ -65,6 +77,16 @@ class HashTable
   end
 
   def zip_values_with_hash_keys
-    @table_values = hashed_keys.zip(@list)
+    hashed_keys.zip(@list)
+  end
+
+  def hash_input(key)
+    ord_key(key) % @list.length
+  end
+
+  def ord_key(key)
+    key.chars.map do |letter|
+      letter.ord
+    end.sum
   end
 end
