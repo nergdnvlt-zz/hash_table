@@ -14,6 +14,7 @@ class HashTable
   private
 
   def build_nil_array
+    # I want this now to build an array of empty pointer objects
     end_array = []
     @list.length.times do
       end_array << nil
