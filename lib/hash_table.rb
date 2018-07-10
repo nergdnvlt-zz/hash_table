@@ -1,4 +1,5 @@
 require './lib/linked_list'
+require './lib/node'
 
 class HashTable
   attr_reader :table
@@ -6,13 +7,17 @@ class HashTable
   def initialize(list)
     @list = list
     @end_array = build_end_array
-    @table = table
+    @table = build_table
   end
 
-  def table    
-    # if node has nil value - append node
-    # if key has node already append to that node
+  def build_table
+    zip_values_with_hash_keys.each do |pair|
+      @end_array[pair[0]].append(pair[1])
+    end
+    return @end_array
   end
+
+  private
 
   def build_end_array
     end_array = []
@@ -37,21 +42,6 @@ class HashTable
   end
 
   def zip_values_with_hash_keys
-    hashed_keys.zip(@list)
+    @table_values = hashed_keys.zip(@list)
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-# names = [Mia, Tim, Bea, Zoe, Sue, Len, Moe, Lou, Rae, Max, Tod]
-# ord = [279, 298, 264, 302, 301, 287, 289, 304, 280, 294, 295]
-# keys = [4, 1, 0, 5, 4, 1, 3, 7, 5, 8, 9]
