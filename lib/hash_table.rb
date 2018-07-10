@@ -1,23 +1,23 @@
+require './lib/linked_list'
+
 class HashTable
+  attr_reader :table
+
   def initialize(list)
     @list = list
-    @end_array = build_nil_array
-    @list_keys = hash_inputs
+    @end_array = build_end_array
+    @table = table
   end
 
-  def build_hash_table
-    # build nodes for each nil value in end_array
+  def table    
     # if node has nil value - append node
     # if key has node already append to that node
   end
 
-  private
-
-  def build_nil_array
-    # I want this now to build an array of empty pointer objects
+  def build_end_array
     end_array = []
     @list.length.times do
-      end_array << nil
+      end_array << LinkedList.new
     end
     end_array
   end
@@ -30,10 +30,14 @@ class HashTable
     end
   end
 
-  def hash_inputs
+  def hashed_keys
     ord_values.map do |num|
       num % @list.length
     end
+  end
+
+  def zip_values_with_hash_keys
+    hashed_keys.zip(@list)
   end
 end
 
